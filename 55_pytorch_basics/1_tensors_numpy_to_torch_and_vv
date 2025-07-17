@@ -1,0 +1,21 @@
+import numpy as np
+import torch
+
+
+np_array=np.ones((2,2))
+print(np_array)
+print(np_array.shape)
+
+t1=torch.Tensor(np_array)
+print(t1)
+
+
+t3=torch.from_numpy(np_array)
+print(t3)
+
+
+t2=torch.ones(2,2)
+print(t2)
+
+np_array_2=t2.numpy()
+print(np_array_2)

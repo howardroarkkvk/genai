@@ -1,0 +1,16 @@
+from dotenv import load_dotenv
+import logfire
+import os
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+
+load_dotenv(override=True)
+logfire.configure(token=os.getenv('LOGFIRE_TOKEN'))
+logfire.instrument_openai()
+model = model=OpenAIModel(model_name=os.getenv("OPENAI_CHAT_MODEL"), api_key=os.getenv("OPENAI_API_KEY"))
+agent = Agent(model=model,system_prompt="You are helpful assistant.")
+
+result=agent.run_sync("tell me a joke, in short")
+logfire.info("result data {data}",data=result.data)
+logfire.info("new messages {msg}",msg=result.new_messages())
+logfire.info("all messages {msgs}",msgs=result.all_messages())
